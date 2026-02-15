@@ -836,5 +836,29 @@ for i in qsort(list):
 
 
 calc_Julia(create=True,length=500 ,max_iter=215)
-
+59.快速排序模板加寻找第k个小数
+def qsort(list,low,high):
+    if low>=high:
+        return 
+    i=low-1
+    j=high+1
+    x=list[(low+high)//2]
+    while(i<j):
+        while True:
+            i+=1
+            if x<=list[i]:
+                break
+        while True:
+            j-=1
+            if x>=list[j]:
+                break
+        if(i<j):
+            list[i],list[j]=list[j],list[i]
+    qsort(list,low,j)
+    qsort(list,j+1,high)
+n,k=map(int,input().split())
+list=[int(s) for s in input().split()]
+n=len(list)
+qsort(list,0,n-1)
+print(list[k-1])
 
