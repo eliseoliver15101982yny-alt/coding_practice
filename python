@@ -811,6 +811,28 @@ def create_image(n_iter_raw,length,fn):
     im=Image.new("RGB",(length,length))
     im.frombytes(rgb.tobytes(),"raw","RGB")
     im.save(fn)
+58.简单的快速排序
+def qsort(list):
+    less=[]
+    greater=[]
+    equal=[]
+    if len(list)<=1:
+        return list
+    else:
+        x=list[0]
+        for k in list:
+            if k<x:
+                less.append(k)
+            elif k==x:
+                equal.append(k)
+            elif k>x:
+                greater.append(k)
+        return qsort(less)+equal+qsort(greater)
+    
+n=int(input())
+list=[int(s) for s in input().split()]
+for i in qsort(list):
+    print(i,end=" ")
 
 
 calc_Julia(create=True,length=500 ,max_iter=215)
