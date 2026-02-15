@@ -765,3 +765,54 @@ with open('D:/code720.txt','r') as infile:
                        if line[i]=='I' and line[j]==':' and line[j+1]==' ':
                            newline=line[:i]+line[j+2:]
                outfile.write(newline)
+57.julia集生成图片
+import array
+import numpy as np
+
+x1,x2,y1,y2=-1.6,1.6,-1.6,1.6
+c_real,c_imag=-0.05,0.68
+
+def calc_z_python(max_iter,zs,c):
+    n_iter=[0]*len(zs)
+    for i in range(len(zs)):
+        z=zs[i]
+        n=0
+        while abs(z)<2 and n<max_iter:
+            z=z*z+c
+            n+=1
+        n_iter[i]=n
+    return n_iter
+
+
+def calc_Julia(create,length,max_iter):
+    xs=np.linspace(x1,x2,length)
+    ys=np.linspace(y1,y2,length)
+    c=complex(c_real,c_imag)
+    length_2=length*length
+    zs=np.zeros(length_2,complex)
+    i=0
+    for x in xs:
+        for y in ys:
+            zs[i]=complex(x,y)
+            i+=1
+    n_iter=calc_z_python(max_iter,zs,c)
+    if create:
+        create_image(n_iter,length,'julia_set.png')
+
+from PIL import Image
+
+def create_image(n_iter_raw,length,fn):
+    max_value=float(max(n_iter_raw))
+    n_iter_raw_limited=[int(float(o)/max_value*215) for o in n_iter_raw]
+    rgb=array.array('B')
+    for o in n_iter_raw_limited:
+        rgb.append(255-o);rgb.append(255-int(o/1.2))
+        rgb.append(255-int(o/1.5))
+    im=Image.new("RGB",(length,length))
+    im.frombytes(rgb.tobytes(),"raw","RGB")
+    im.save(fn)
+
+
+calc_Julia(create=True,length=500 ,max_iter=215)
+
+
