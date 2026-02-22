@@ -861,4 +861,41 @@ list=[int(s) for s in input().split()]
 n=len(list)
 qsort(list,0,n-1)
 print(list[k-1])
+60.归并排序模板+寻找逆序数对
+def merge_sort(list,left,right):
+    if left>=right:
+        return
+    mid=(left+right)//2
+    merge_sort(list,left,mid)
+    merge_sort(list,mid+1,right)
+    i=left
+    j=mid+1
+    temp=[]
+    while(i<=mid and j<=right):
+        if list[i]<=list[j]:
+            temp.append(list[i])
+            i+=1
+        else:
+            num.append(mid-i+1)
+            temp.append(list[j])
+            j+=1  
+    for m in range(i,mid+1):
+        temp.append(list[m])
+    for n in range(j,right+1):
+        temp.append(list[n])
+    i=left
+    j=0
+    while(i<=right):
+        list[i]=temp[j]
+        i+=1
+        j+=1  
+    return num
+num=[]
+n=int(input())
+list=[int(s) for s in input().split()]
+num=merge_sort(list,0,len(list)-1)
+total_num=0
+for x in num:
+   total_num+=x
+print(total_num)
 
