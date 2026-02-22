@@ -940,5 +940,30 @@ for i in range(p):
     else:
         print(left[i],end=" ")
         print(right[i])
-
+62.计算三次方根
+def bsearch(left,right,n):
+    eps=1e-7#需要保留几位小数，这里的精度就要比它高至少一位
+    while (right-left)>eps:
+        mid=(left+right)/2
+        if mid**3<=n:
+            left=mid
+        else:
+            right=mid
+    return left
+n=float(input())
+if n>=0:
+    if n>1:
+        cube_root=bsearch(0,n,n)
+        print("%.6f"%cube_root)
+    else:
+        cube_root=1/bsearch(0,1/n,1/n)
+        print("%.6f"%cube_root)
+else:
+    if n<-1:
+        cube_root=-bsearch(0,-n,-n)
+        print("%.6f"%cube_root)
+    else:
+        cube_root=-1/bsearch(0,-1/n,-1/n)
+        print("%.6f"%cube_root)
+   
 
