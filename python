@@ -898,4 +898,47 @@ total_num=0
 for x in num:
    total_num+=x
 print(total_num)
+61.整数二分法
+def check(x,k):
+    if x==k:
+        return True
+    else:
+        return False
+    
+def bsaerch_1(left,right,k,list):
+    while left<right:
+        mid=(left+right)//2
+        if list[mid]>=k:
+            right=mid
+        else:
+            left=mid+1
+    return left
+def bsaerch_2(left,right,k,list):
+    while left<right:
+        mid=(left+right+1)//2
+        if list[mid]<=k:
+            left=mid
+        else:
+            right=mid-1
+    return right
+
+
+n,p=map(int,input().split())
+list=[int(s) for s in input().split()]
+for_search_list=[]
+left=[]
+right=[]
+for i in range(p):
+    for_search_list.append(int(input()))
+for k in for_search_list:
+    left.append(bsaerch_1(0,n-1,k,list))
+    right.append(bsaerch_2(0,n-1,k,list))
+
+for i in range(p):
+    if list[left[i]]!=for_search_list[i]:
+        print("-1 -1")
+    else:
+        print(left[i],end=" ")
+        print(right[i])
+
 
