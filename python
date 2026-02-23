@@ -965,5 +965,61 @@ else:
     else:
         cube_root=-1/bsearch(0,-1/n,-1/n)
         print("%.6f"%cube_root)
-   
+63.高精度加法
+def add(A,B):
+    if len(A)<len(B):
+        return add(B,A)
+    t=0
+    C=[]
+    for i in range(len(A)):
+        t+=A[i]
+        if i<len(B):
+            t+=B[i]
+        C.append(t%10)
+        t//=10
+    if t!=0:
+        C.append(t)
+    return C
 
+s1 = input().strip()
+s2 = input().strip()
+A = [int(x) for x in s1[::-1]] 
+B = [int(x) for x in s2[::-1]]
+C = add(A, B)
+print("".join(map(str, C[::-1])))
+64.高精度减法
+def sub(A,B):
+    t=0
+    C=[]
+    for i in range(len(A)):
+        t=A[i]-t
+        if i<len(B):
+            t-=B[i]
+        C.append((t+10)%10)
+        if t<0:
+            t=1
+        else:
+            t=0   
+    while len(C)>1 and C[-1]==0:
+        C.pop()
+    return C
+
+s1 = input().strip()
+s2 = input().strip()
+A = [int(x) for x in s1[::-1]] 
+B = [int(x) for x in s2[::-1]]
+if len(A)>len(B):
+    C = sub(A, B)
+    print("".join(map(str, C[::-1])))
+elif len(A)<len(B):
+    C=sub(B,A)
+    print("-",end="")
+    print("".join(map(str, C[::-1])))
+elif len(A)==len(B):
+    if s1>=s2:
+        C = sub(A, B)
+        print("".join(map(str, C[::-1])))
+    else:
+        C=sub(B,A)
+        print("-",end="")
+        print("".join(map(str, C[::-1])))
