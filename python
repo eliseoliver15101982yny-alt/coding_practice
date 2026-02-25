@@ -1023,3 +1023,76 @@ elif len(A)==len(B):
         C=sub(B,A)
         print("-",end="")
         print("".join(map(str, C[::-1])))
+65.高精度乘法
+def mul(A,b):
+    t=0
+    i=0
+    C=[]
+    while i<len(A) or t!=0:
+        if i<len(A):
+            t+=A[i]*b
+        C.append(t%10)
+        t//=10
+        i+=1
+    while len(C)>1 and C[-1]==0:
+        C.pop()
+    return C
+
+s1 = input().strip()
+b=int(input())
+A = [int(x) for x in s1[::-1]] 
+C=mul(A,b)
+print("".join(map(str,C[::-1])))
+66.高精度除法
+def div(A,b):
+    t=0
+    i=len(A)-1
+    C=[]
+    while i>=0:
+        t=10*t+A[i]
+        C.append(t//b)
+        t%=b
+        i-=1
+    C=C[::-1]
+    while len(C)>1 and C[-1]==0:
+        C.pop()
+    return C
+
+def mul(A,b):
+    t=0
+    i=0
+    C=[]
+    while i<len(A) or t!=0:
+        if i<len(A):
+            t+=A[i]*b
+        C.append(t%10)
+        t//=10
+        i+=1
+    while len(C)>1 and C[-1]==0:
+        C.pop()
+    return C
+
+def sub(A,B):
+    t=0
+    C=[]
+    for i in range(len(A)):
+        t=A[i]-t
+        if i<len(B):
+            t-=B[i]
+        C.append((t+10)%10)
+        if t<0:
+            t=1
+        else:
+            t=0   
+    while len(C)>1 and C[-1]==0:
+        C.pop()
+    return C
+
+s1 = input().strip()
+b=int(input())
+A = [int(x) for x in s1[::-1]] 
+C=div(A,b)
+D=mul(C,b)
+E=sub(A,D)
+print("".join(map(str,C[::-1])))
+print("".join(map(str,E[::-1])))
